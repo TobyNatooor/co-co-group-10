@@ -1,26 +1,33 @@
 grammar cc;
 
-start : cmd* EOF ;
-
-cmd :  IDENTIFIER ':' exp
-    ;
+start : exp* EOF ;
 
 exps : exp
     | exps ',' exps
     ;
 
-exp : SIGNAL
-    | IDENTIFIER '(' exps ')'
-    | IDENTIFIER '\''
-    | exp '=' exp
+exp : SIGNAL                    // Signal
+    | exp '*' exp               // And
+    // | exp ('*' | ' ') exp
+    // | exp exp
+    | exp '+' exp               // Or
+    | '/' SIGNAL                // Negation
+    | IDENTIFIER '(' exps ')'   // Definitions
+    | exp '\''
     | '(' exp ')'
-    | '/' exp
-    | exp ('*' | ' ') exp
-    | exp '+' exp
+    | exp '=' exp
+    | exp '=' VALUE
+    | IDENTIFIER ':' exp
+    | IDENTIFIER ':' IDENTIFIER
     ;
 
-IDENTIFIER : [a-z] [a-zA-Z]*;
+// Apostrophe before forward slash?
+// SIGNAL != exp?
+
+
+IDENTIFIER : [a-z] [a-zA-Z]* ;
 SIGNAL : [A-Z] [a-z]* ;
+VALUE : [0-9]* ;
 
 WHITESPACE : [ \r\n\t]+ -> skip ;
 
