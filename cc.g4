@@ -1,13 +1,18 @@
 grammar cc;
 
-start : exp EOF ;
+start : cmd* EOF ;
+
+cmd :  IDENTIFIER ':' exp
+    ;
 
 exps : exp
-     | exps ',' exps
-     ;
+    | exps ',' exps
+    ;
 
 exp : SIGNAL
     | IDENTIFIER '(' exps ')'
+    | IDENTIFIER '\''
+    | exp '=' exp
     | '(' exp ')'
     | '/' exp
     | exp ('*' | ' ') exp
@@ -17,6 +22,6 @@ exp : SIGNAL
 IDENTIFIER : [a-z] [a-zA-Z]*;
 SIGNAL : [A-Z] [a-z]* ;
 
-WHITESPACE : [ \n\t]+ -> skip ;
+WHITESPACE : [ \r\n\t]+ -> skip ;
 
 ANYTHING : . ;
