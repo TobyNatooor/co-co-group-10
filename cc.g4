@@ -1,3 +1,5 @@
+grammar cc;
+
 start : exp EOF ;
 
 exps : exp
