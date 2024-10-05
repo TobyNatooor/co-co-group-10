@@ -8,7 +8,7 @@ exps : exp
 
 exp : SIGNAL
     | IDENTIFIER '(' exps ')'
-    | '(' exp ')'	
+    | '(' exp ')'
     | '/' exp
     | exp ('*' | ' ') exp
     | exp '+' exp
@@ -16,4 +16,7 @@ exp : SIGNAL
 
 IDENTIFIER : [a-z] [a-zA-Z]*;
 SIGNAL : [A-Z] [a-z]* ;
-VALUES : (0 | 1)+ ;
+
+WHITESPACE : [ \n\t]+ -> skip ;
+
+ANYTHING : . ;
