@@ -1,13 +1,17 @@
-grammar cc;
+start : exp EOF ;
 
-start : thing* EOF ;
+exps : exp
+     | exps ',' exps
+     ;
 
-thing : NAME':'(NAME|NUM) ;
+exp : SIGNAL
+    | IDENTIFIER '(' exps ')'
+    | '(' exp ')'	
+    | '/' exp
+    | exp ('*' | ' ') exp
+    | exp '+' exp
+    ;
 
-NAME : [a-zA-Z]+ ;
-
-NUM : [0-9]+ ;
-
-WHITESPACE : [ \n\t]+ -> skip ;
-
-ANYTHING : . ;
+IDENTIFIER : [a-z] [a-zA-Z]*;
+SIGNAL : [A-Z] [a-z]* ;
+VALUES : (0 | 1)+ ;
