@@ -1,40 +1,56 @@
 grammar cc;
 
-start : (cmd)* EOF ;
+start : section* EOF;
 
-cmd : IDENTIFIER DECLARE IDENTIFIER
-    | IDENTIFIER DECLARE exp
-    ;
+// =============== GRAMMAR ================
+
+section  : 'hardware' DECLARE ~('//' | '/*' | '*/')
+         | 'inputs' DECLARE IDENTIFIER+
+         | 'outputs' DECLARE IDENTIFIER+
+         | 'latches' DECLARE IDENTIFIER+
+         | 'def' DECLARE IDENTIFIER '(' args ')' '=' exp
+         | 'updates' DECLARE updt+
+         | 'siminputs' DECLARE value+
+         ;
+
+value: IDENTIFIER EQUALS VALUE;
+
+updt: IDENTIFIER EQUALS exp+;
 
 args : IDENTIFIER
-    | args ',' args
-    ;
+     | args ',' args
+     ;
 
 exps : exp
-    | exps ',' exp
-    ;
+     | exp ',' exps
+     ;
 
-exp : SIGNAL
+exp : IDENTIFIER
+    | '(' exp ')'
     | NEG exp
     | exp PRIME
-    | IDENTIFIER '(' args ')' '=' exp
     | IDENTIFIER '(' exps ')'
-    | exp ('*') exp
+    | exp '*' exp
     | exp exp
-    | exp EQUALS exp
-    | exp EQUALS VALUE
-    | IDENTIFIER
+    | exp '+' exp
     ;
 
-IDENTIFIER : [a-z] [a-zA-Z]*;
-SIGNAL : [A-Z] [a-z]* ;
+// =============== TOKENS ================
+
+IDENTIFIER : [a-zA-Z] [a-zA-Z0-9]*;
+SIGNAL : [a-zA-Z] [a-zA-Z0-9]* ;
 DECLARE : ':';
 PARENS : '(' | ')';
 NEG : '/';
 PRIME : '\'';
 EQUALS : '=';
 VALUE : [0-1]+ ;
-SPACE : ' ' -> channel(HIDDEN) ;
-WHITESPACE : [\r\n\t]+ -> skip ;
+LNSKIP : '\n';
+
+// =============== SKIPPING ================
+
+LN_COMMENT : '//' ~[\r\n]* -> skip;
+BLK_COMMENT : '/*' .*? '*/' -> skip;
+WHITESPACE : [ \r\t\n]+ -> skip ;
 
 ANYTHING : . ;
