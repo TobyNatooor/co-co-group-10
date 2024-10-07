@@ -6,13 +6,24 @@ cmd : IDENTIFIER DECLARE exp
     | IDENTIFIER DECLARE IDENTIFIER
     ;
 
+args : IDENTIFIER
+    | args ',' args
+    ;
+
+exps : exp
+    | exps ',' exp
+    ;
+
 exp : SIGNAL
     | NEG exp
     | exp PRIME
+    | IDENTIFIER '(' args ')' '=' exp
+    | IDENTIFIER '(' exps ')'
     | exp ('*') exp
     | exp exp
     | exp EQUALS exp
     | exp EQUALS VALUE
+    | IDENTIFIER
     ;
 
 IDENTIFIER : [a-z] [a-zA-Z]*;
