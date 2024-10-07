@@ -25,14 +25,14 @@ exps : exp
      | exp ',' exps
      ;
 
-exp : IDENTIFIER
-    | '(' exp ')'
-    | NEG exp
-    | exp PRIME
-    | IDENTIFIER '(' exps ')'
-    | exp '*' exp
-    | exp exp
-    | exp '+' exp
+exp : x=IDENTIFIER                  # Var
+    | '(' e=exp ')'                 # Paren
+    | NEG e=exp                     # Neg
+    | e=exp PRIME                   # Prime
+    | v=IDENTIFIER '(' e=exps ')'   # FunCall
+    | (e1=exp '*' e2=exp)           # AndA
+    | e1=exp e2=exp                 # AndB
+    | e1=exp '+' e=exp              # Or
     ;
 
 // =============== TOKENS ================
