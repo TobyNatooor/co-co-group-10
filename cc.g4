@@ -4,33 +4,35 @@ start : section* EOF;
 
 // =============== GRAMMAR ================
 
-section  : 'hardware' DECLARE ~('//' | '/*' | '*/')
-         | 'inputs' DECLARE IDENTIFIER+
-         | 'outputs' DECLARE IDENTIFIER+
-         | 'latches' DECLARE IDENTIFIER+
-         | 'def' DECLARE IDENTIFIER '(' args ')' '=' exp
-         | 'updates' DECLARE updt+
-         | 'siminputs' DECLARE value+
+section  : s='hardware' ':' t=~('//' | '/*' | '*/')             # Hardware      
+         | s='inputs' ':' x=IDENTIFIER+                         # Inputs
+         | s='outputs' ':' x=IDENTIFIER+                        # Outputs
+         | s='latches' ':' x=IDENTIFIER+                        # Latches
+         | s='def' ':' x=IDENTIFIER '(' a=args ')' '=' e=exp    # Def    
+         | s='updates' ':' u=updt+                              # Updates       
+         | s='siminputs' ':' v=value+                           # Siminputs
          ;
 
-value: IDENTIFIER EQUALS VALUE;
+value: x=IDENTIFIER '=' v=VALUE      # Val
+     ;     
 
-updt: IDENTIFIER EQUALS exp+;
+updt: x=IDENTIFIER '=' e=exp     # Update
+    ;    
 
-args : IDENTIFIER
-     | args ',' args
+args : a=IDENTIFIER         # ArgUni
+     | a=args ',' b=args    # ArgMulti
      ;
 
-exps : exp
-     | exp ',' exps
+exps : e=exp                # ExUni
+     | e1=exp ',' e2=exps   # ExMulti
      ;
 
 exp : x=IDENTIFIER                  # Var
     | '(' e=exp ')'                 # Paren
-    | NEG e=exp                     # Neg
-    | e=exp PRIME                   # Prime
+    | '/' e=exp                     # Ne
+    | e=exp '\''                    # Pri
     | v=IDENTIFIER '(' e=exps ')'   # FunCall
-    | (e1=exp '*' e2=exp)           # AndA
+    | e1=exp '*' e2=exp             # AndA
     | e1=exp e2=exp                 # AndB
     | e1=exp '+' e=exp              # Or
     ;
@@ -38,14 +40,7 @@ exp : x=IDENTIFIER                  # Var
 // =============== TOKENS ================
 
 IDENTIFIER : [a-zA-Z] [a-zA-Z0-9]*;
-SIGNAL : [a-zA-Z] [a-zA-Z0-9]* ;
-DECLARE : ':';
-PARENS : '(' | ')';
-NEG : '/';
-PRIME : '\'';
-EQUALS : '=';
 VALUE : [0-1]+ ;
-LNSKIP : '\n';
 
 // =============== SKIPPING ================
 
