@@ -2,8 +2,8 @@ grammar cc;
 
 start : (cmd)* EOF ;
 
-cmd : IDENTIFIER DECLARE exp
-    | IDENTIFIER DECLARE IDENTIFIER
+cmd : IDENTIFIER DECLARE IDENTIFIER
+    | IDENTIFIER DECLARE exp
     ;
 
 args : IDENTIFIER
