@@ -1,27 +1,17 @@
 grammar cc;
 
-start : cmd* EOF ;
+start : (IDENTIFIER | SIGNAL | DECLARE | PARENS | NEG | PRIME | EQUALS | VALUE)* EOF ;
 
-cmd :  IDENTIFIER ':' exp
-    ;
 
-exps : exp
-    | exps ',' exps
-    ;
-
-exp : SIGNAL
-    | IDENTIFIER '(' exps ')'
-    | IDENTIFIER '\''
-    | exp '=' exp
-    | '(' exp ')'
-    | '/' exp
-    | exp ('*' | ' ') exp
-    | exp '+' exp
-    ;
 
 IDENTIFIER : [a-z] [a-zA-Z]*;
 SIGNAL : [A-Z] [a-z]* ;
-
+DECLARE : ':';
+PARENS : '(' | ')';
+NEG : '/';
+PRIME : '\'';
+EQUALS : '=';
+VALUE : [0-1]+ ;
 WHITESPACE : [ \r\n\t]+ -> skip ;
 
 ANYTHING : . ;
