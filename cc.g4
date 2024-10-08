@@ -5,13 +5,17 @@ start : section* EOF;
 // =============== GRAMMAR ================
 
 section  : s='hardware' ':' t=~('//' | '/*' | '*/')             # Hardware      
-         | s='inputs' ':' x=IDENTIFIER+                         # Inputs
-         | s='outputs' ':' x=IDENTIFIER+                        # Outputs
-         | s='latches' ':' x=IDENTIFIER+                        # Latches
+         | s='inputs' ':' x=ids                                 # Inputs
+         | s='outputs' ':' x=ids                                # Outputs
+         | s='latches' ':' x=ids                                # Latches
          | s='def' ':' x=IDENTIFIER '(' a=args ')' '=' e=exp    # Def    
          | s='updates' ':' u=updt+                              # Updates       
          | s='siminputs' ':' v=value+                           # Siminputs
          ;
+
+ids : IDENTIFIER
+    | ids IDENTIFIER
+    ;
 
 value: x=IDENTIFIER '=' v=VALUE      # Val
      ;     
