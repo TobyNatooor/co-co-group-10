@@ -119,6 +119,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitStart(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitStart(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StartContext start() throws RecognitionException {
@@ -188,6 +193,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitLatches(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitLatches(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class SiminputsContext extends SectionContext {
@@ -208,6 +218,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitSiminputs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitSiminputs(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -233,6 +248,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitDef(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitDef(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class UpdatesContext extends SectionContext {
@@ -254,6 +274,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitUpdates(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitUpdates(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class OutputsContext extends SectionContext {
@@ -273,6 +298,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitOutputs(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitOutputs(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class HardwareContext extends SectionContext {
@@ -286,6 +316,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitHardware(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitHardware(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -305,6 +340,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitInputs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitInputs(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -544,6 +584,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitVal(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitVal(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ValueContext value() throws RecognitionException {
@@ -600,6 +645,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitUpdate(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitUpdate(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -660,6 +710,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitArgMulti(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitArgMulti(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ArgUniContext extends ArgsContext {
@@ -673,6 +728,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitArgUni(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitArgUni(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -769,6 +829,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitExMulti(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitExMulti(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExUniContext extends ExpsContext {
@@ -784,6 +849,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitExUni(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitExUni(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -858,6 +928,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitOr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitOr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunCallContext extends ExpContext {
@@ -880,6 +955,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitFunCall(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitFunCall(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class AndBContext extends ExpContext {
@@ -899,6 +979,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitAndB(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitAndB(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -920,6 +1005,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitAndA(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitAndA(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class VarContext extends ExpContext {
@@ -933,6 +1023,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitVar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitVar(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -950,6 +1045,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitPri(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitPri(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NeContext extends ExpContext {
@@ -966,6 +1066,11 @@ public class ccParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitNe(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitNe(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParenContext extends ExpContext {
@@ -981,6 +1086,11 @@ public class ccParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ccListener ) ((ccListener)listener).exitParen(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ccVisitor ) return ((ccVisitor<? extends T>)visitor).visitParen(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
