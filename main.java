@@ -41,8 +41,7 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 				"<html><head><title>TITLEOFTHEPAGE</title>\n" +
 				"<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n" +
 				"<script type=\"text/javascript\" id=\"MathJax-script\"\n" +
-				"async\n" +
-				"src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js\">\n" +
+				"async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js\">\n" +
 				"</script></head><body>\n";
 
 		for(ccParser.SectionContext sc : test){
@@ -54,7 +53,6 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitHardware(ccParser.HardwareContext ctx) {
-		// TODO Auto-generated method stub
 		String title = ctx.t.getText();
 		String result = "<h1>" + title + "</h1>\n";
 		return result;
@@ -86,7 +84,7 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitLatches(ccParser.LatchesContext ctx) {
-		String scName = "<h2>" + ctx.s.getText() + "</h2>\n";
+		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
 		String signalStr = "";
 		List<Token> signals = ctx.x;
 		for (Token s : signals){
@@ -98,8 +96,8 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitDef(ccParser.DefContext ctx) {
-		String scName = "<h2>" + ctx.s.getText() + "</h2>\n";
-		String defName = "\\mathit{" + ctx.x.getText() + "}";
+		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
+		String defName = "\\(\\mathit{" + ctx.x.getText() + "}";
 		List<Token> args = ctx.a;
 		String argsStr = "(";
 		for (int i = 0; i < args.size(); i++){
@@ -108,10 +106,11 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 			}
 			argsStr += args.get(i).getText();
 		}
-		argsStr += ")=";
+		argsStr += ")=(";
+		String expsStr = ctx.e.getText();
+		expsStr += ")\\)<b>";
 
-		//String exp = ctx.e.getText();
-		String result = scName + defName + argsStr + "\n";
+		String result = scName + defName + argsStr + expsStr + "\n";
 		return result;
 	}
 
