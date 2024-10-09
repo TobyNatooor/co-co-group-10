@@ -137,54 +137,6 @@ public interface ccListener extends ParseTreeListener {
 	 */
 	void exitUpdate(ccParser.UpdateContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ArgMulti}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgMulti(ccParser.ArgMultiContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ArgMulti}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgMulti(ccParser.ArgMultiContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ArgUni}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgUni(ccParser.ArgUniContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ArgUni}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgUni(ccParser.ArgUniContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExUni}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 */
-	void enterExUni(ccParser.ExUniContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExUni}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 */
-	void exitExUni(ccParser.ExUniContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExMulti}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 */
-	void enterExMulti(ccParser.ExMultiContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExMulti}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 */
-	void exitExMulti(ccParser.ExMultiContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Or}
 	 * labeled alternative in {@link ccParser#exp}.
 	 * @param ctx the parse tree

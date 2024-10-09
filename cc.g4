@@ -22,14 +22,6 @@ def : x=IDENTIFIER '(' a+=IDENTIFIER (',' a+=IDENTIFIER)* ')' '=' e=exp # Define
 updt: x=IDENTIFIER '=' e=exp     # Update
     ;
 
-args : a=IDENTIFIER         # ArgUni
-     | a=args ',' b=args    # ArgMulti
-     ;
-
-exps : e=exp                # ExUni
-     | e1=exp ',' e2=exps   # ExMulti
-     ;
-
 exp : x=IDENTIFIER                  # Var
     | '(' e=exp ')'                 # Paren
     | '/' e=exp                     # Ne

@@ -86,34 +86,6 @@ public interface ccVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUpdate(ccParser.UpdateContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ArgMulti}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArgMulti(ccParser.ArgMultiContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ArgUni}
-	 * labeled alternative in {@link ccParser#args}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArgUni(ccParser.ArgUniContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExUni}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExUni(ccParser.ExUniContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExMulti}
-	 * labeled alternative in {@link ccParser#exps}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExMulti(ccParser.ExMultiContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Or}
 	 * labeled alternative in {@link ccParser#exp}.
 	 * @param ctx the parse tree

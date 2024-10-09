@@ -18,10 +18,8 @@ public class main {
 	ParseTree parseTree = parser.start();
 
 	HTMLMaker htmlMaker = new HTMLMaker();
-		System.out.println("Before visit");
 	String p = htmlMaker.visit(parseTree);
 	System.out.println(p);
-		System.out.println("Hej med dig");
     }
 }
 
@@ -31,8 +29,6 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 	
 	@Override
 	public String visitStart(ccParser.StartContext ctx) {
-		// TODO Auto-generated method stub
-		System.out.println("Go into start");
 		List<ccParser.SectionContext> test = ctx.scs;
 
 		String result = "<!DOCTYPE html>\n" +
@@ -158,30 +154,6 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 		sig += "&larr;";
 		String expsStr = "\\(" + visit(ctx.e) + "\\)";
 		return sig + expsStr + "<br>";
-	}
-
-	@Override
-	public String visitArgMulti(ccParser.ArgMultiContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	public String visitArgUni(ccParser.ArgUniContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	public String visitExUni(ccParser.ExUniContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	public String visitExMulti(ccParser.ExMultiContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
 	}
 
 	@Override
