@@ -65,17 +65,17 @@ public interface ccListener extends ParseTreeListener {
 	 */
 	void exitLatches(ccParser.LatchesContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Def}
+	 * Enter a parse tree produced by the {@code Definitions}
 	 * labeled alternative in {@link ccParser#section}.
 	 * @param ctx the parse tree
 	 */
-	void enterDef(ccParser.DefContext ctx);
+	void enterDefinitions(ccParser.DefinitionsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Def}
+	 * Exit a parse tree produced by the {@code Definitions}
 	 * labeled alternative in {@link ccParser#section}.
 	 * @param ctx the parse tree
 	 */
-	void exitDef(ccParser.DefContext ctx);
+	void exitDefinitions(ccParser.DefinitionsContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Updates}
 	 * labeled alternative in {@link ccParser#section}.
@@ -112,6 +112,18 @@ public interface ccListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVal(ccParser.ValContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Define}
+	 * labeled alternative in {@link ccParser#def}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefine(ccParser.DefineContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Define}
+	 * labeled alternative in {@link ccParser#def}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefine(ccParser.DefineContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Update}
 	 * labeled alternative in {@link ccParser#updt}.

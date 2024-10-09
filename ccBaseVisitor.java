@@ -52,7 +52,7 @@ public class ccBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ccV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDef(ccParser.DefContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDefinitions(ccParser.DefinitionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -74,6 +74,13 @@ public class ccBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ccV
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitVal(ccParser.ValContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDefine(ccParser.DefineContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

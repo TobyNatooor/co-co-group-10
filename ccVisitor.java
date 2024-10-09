@@ -44,12 +44,12 @@ public interface ccVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLatches(ccParser.LatchesContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Def}
+	 * Visit a parse tree produced by the {@code Definitions}
 	 * labeled alternative in {@link ccParser#section}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDef(ccParser.DefContext ctx);
+	T visitDefinitions(ccParser.DefinitionsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Updates}
 	 * labeled alternative in {@link ccParser#section}.
@@ -71,6 +71,13 @@ public interface ccVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVal(ccParser.ValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Define}
+	 * labeled alternative in {@link ccParser#def}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefine(ccParser.DefineContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Update}
 	 * labeled alternative in {@link ccParser#updt}.

@@ -1,9 +1,7 @@
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.CharStreams;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class main {
@@ -60,11 +58,11 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitInputs(ccParser.InputsContext ctx) {
-		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
+		String scName = "<h2> " + "Inputs" + " </h2>\n";
 		String signalStr = "";
 		List<Token> signals = ctx.x;
 		for (Token s : signals){
-			signalStr += s.getText() + "\n";
+			signalStr += s.getText() + "<br>\n";
 		}
 		String result = scName + signalStr;
 		return result;
@@ -72,11 +70,11 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitOutputs(ccParser.OutputsContext ctx) {
-		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
+		String scName = "<h2> " + "Outputs" + " </h2>\n";
 		String signalStr = "";
 		List<Token> signals = ctx.x;
 		for (Token s : signals){
-			signalStr += s.getText() + "\n";
+			signalStr += s.getText() + "<br>\n";
 		}
 		String result = scName + signalStr;
 		return result;
@@ -84,19 +82,59 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitLatches(ccParser.LatchesContext ctx) {
-		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
+		String scName = "<h2> " + "Latches" + " </h2>\n";
 		String signalStr = "";
 		List<Token> signals = ctx.x;
 		for (Token s : signals){
-			signalStr += s.getText() + "\n";
+			signalStr += s.getText() + "<br>\n";
 		}
 		String result = scName + signalStr;
 		return result;
 	}
 
 	@Override
-	public String visitDef(ccParser.DefContext ctx) {
-		String scName = "<h2> " + ctx.s.getText() + " </h2>\n";
+	public String visitDefinitions(ccParser.DefinitionsContext ctx) {
+		String scName = "<h2> " + "Definitions" + " </h2>\n";
+		List<ccParser.DefContext> defs = ctx.d;
+		String defsStr = "";
+		for(ccParser.DefContext def : defs){
+			defsStr += visit(def) + "\n";
+		}
+		String result = scName + defsStr;
+		return result;
+	}
+
+	@Override
+	public String visitUpdates(ccParser.UpdatesContext ctx) {
+		String scName = "<h2> " + "Updates" + " </h2>\n";
+		List<ccParser.UpdtContext> updts = ctx.u;
+		String updtsStr = "";
+		for(ccParser.UpdtContext updt : updts){
+			updtsStr += visit(updt) + "\n";
+		}
+		String result = scName + updtsStr;
+		return result;
+	}
+
+	@Override
+	public String visitSiminputs(ccParser.SiminputsContext ctx) {
+		String scName = "<h2> " + "Siminputs" + " </h2>\n";
+		List<ccParser.ValueContext> vals = ctx.v;
+		String valsStr = "";
+		for(ccParser.ValueContext val : vals){
+			valsStr += visit(val) + "<br>\n";
+		}
+		String result = scName + valsStr;
+		return result;
+	}
+
+	@Override
+	public String visitVal(ccParser.ValContext ctx) {
+		return "<b>" + ctx.x.getText() + "</b>: " + ctx.v.getText();
+	}
+
+	@Override
+	public String visitDefine(ccParser.DefineContext ctx){
 		String defName = "\\(\\mathit{" + ctx.x.getText() + "}";
 		List<Token> args = ctx.a;
 		String argsStr = "(";
@@ -107,35 +145,19 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 			argsStr += args.get(i).getText();
 		}
 		argsStr += ")=(";
-		String expsStr = ctx.e.getText();
-		expsStr += ")\\)<b>";
+		String expsStr = visit(ctx.e);
+		expsStr += ")\\)<br>";
 
-		String result = scName + defName + argsStr + expsStr + "\n";
+		String result = defName + argsStr + expsStr;
 		return result;
 	}
 
 	@Override
-	public String visitUpdates(ccParser.UpdatesContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	public String visitSiminputs(ccParser.SiminputsContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
-	public String visitVal(ccParser.ValContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	@Override
 	public String visitUpdate(ccParser.UpdateContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		String sig = ctx.x.getText();
+		sig += "&larr;";
+		String expsStr = "\\(" + visit(ctx.e) + "\\)";
+		return sig + expsStr + "<br>";
 	}
 
 	@Override
@@ -164,50 +186,51 @@ class HTMLMaker extends AbstractParseTreeVisitor<String>
 
 	@Override
 	public String visitOr(ccParser.OrContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "(" + visit(ctx.e1) + "\\vee" + visit(ctx.e2) + ")";
 	}	
 
 	@Override
 	public String visitFunCall(ccParser.FunCallContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		List<ccParser.ExpContext> exps = ctx.e;
+		String defName = ctx.v.getText() + "(";
+		String expsStr = "";
+		for(int i = 0; i < exps.size(); i++){
+			if (i != 0){
+				expsStr += ",";
+			}
+			expsStr += visit(exps.get(i));
+		}
+		return defName + expsStr + ")";
 	}
 
 	@Override
 	public String visitAndB(ccParser.AndBContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "(" + visit(ctx.e1) + "\\wedge" + visit(ctx.e2) + ")";
 	}
 
 	@Override
 	public String visitAndA(ccParser.AndAContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "(" + visit(ctx.e1) + "\\wedge" + visit(ctx.e2) + ")";
 	}
 
 	@Override
 	public String visitVar(ccParser.VarContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "\\mathrm{" + ctx.x.getText() + "}";
 	}
 
 	@Override
 	public String visitPri(ccParser.PriContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "\\mathrm{" + ctx.x.getText() + "'}";
 	}
 
 	@Override
 	public String visitNe(ccParser.NeContext ctx) {
-		// TODO Auto-generated method stub
-		return "";	
+		return "\\neg{(" + visit(ctx.e) + ")}";
 	}
 
 	@Override
 	public String visitParen(ccParser.ParenContext ctx) {
-		// TODO Auto-generated method stub
-		return "";
+		return "(" + visit(ctx.e) + ")";
 	}
     
 }

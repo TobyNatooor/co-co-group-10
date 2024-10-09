@@ -8,16 +8,19 @@ section  : s='hardware' ':' t=~('//' | '/*' | '*/')             # Hardware
          | s='inputs' ':' x+=IDENTIFIER+                        # Inputs
          | s='outputs' ':' x+=IDENTIFIER+                       # Outputs
          | s='latches' ':' x+=IDENTIFIER+                       # Latches
-         | s='def' ':' x=IDENTIFIER '(' a+=IDENTIFIER (',' a+=IDENTIFIER)* ')' '=' e=exp    # Def
+         | ('def' ':' d+=def)+                                  # Definitions
          | s='updates' ':' u+=updt+                             # Updates       
          | s='siminputs' ':' v+=value+                          # Siminputs
          ;
 
 value: x=IDENTIFIER '=' v=VALUE      # Val
-     ;     
+     ;
+
+def : x=IDENTIFIER '(' a+=IDENTIFIER (',' a+=IDENTIFIER)* ')' '=' e=exp # Define
+    ;
 
 updt: x=IDENTIFIER '=' e=exp     # Update
-    ;    
+    ;
 
 args : a=IDENTIFIER         # ArgUni
      | a=args ',' b=args    # ArgMulti
@@ -30,11 +33,11 @@ exps : e=exp                # ExUni
 exp : x=IDENTIFIER                  # Var
     | '(' e=exp ')'                 # Paren
     | '/' e=exp                     # Ne
-    | e=exp '\''                    # Pri
+    | x=IDENTIFIER '\''                    # Pri
     | v=IDENTIFIER '(' e+=exp (',' e+=exp)* ')'   # FunCall
     | e1=exp '*' e2=exp             # AndA
     | e1=exp e2=exp                 # AndB
-    | e1=exp '+' e=exp              # Or
+    | e1=exp '+' e2=exp              # Or
     ;
 
 // =============== TOKENS ================

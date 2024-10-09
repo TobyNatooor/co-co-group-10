@@ -76,13 +76,13 @@ public class ccBaseListener implements ccListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDef(ccParser.DefContext ctx) { }
+	@Override public void enterDefinitions(ccParser.DefinitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDef(ccParser.DefContext ctx) { }
+	@Override public void exitDefinitions(ccParser.DefinitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -119,6 +119,18 @@ public class ccBaseListener implements ccListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVal(ccParser.ValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDefine(ccParser.DefineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefine(ccParser.DefineContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
