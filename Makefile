@@ -1,24 +1,34 @@
-antlrjar = antlr-4.13.2-complete.jar
+##### If you have not installed ANTLR in your classpath, you still need to copy antlr-4.13.0-complete.jar to this folder and set up the classpath option:
 
-###### FOR LINUX AND MAC -- comment the following line if you use Windows:
-classpath = '$(antlrjar):.'
+classpathoption = -cp 'antlr-4.13.2-complete.jar:.'  # if you are using mac/linux
+#classpathoption = -cp 'antlr-4.13.2-complete.jar;.'  # if you are using windows
 
-###### FOR WINDOWS -- uncomment the following line if you use Windows:
-#classpath = '$(antlrjar);.'
+#classpathoption =   # nothing if already installed
 
-antlr4 = java -cp $(classpath) org.antlr.v4.Tool
-grun = java -cp $(classpath) org.antlr.v4.gui.TestRig
-SRCFILES = main.java
-GENERATED = ccListener.java ccBaseListener.java ccParser.java ccLexer.java
+
+antlr4 = java $(classpathoption) org.antlr.v4.Tool
+grun   = java $(classpathoption) org.antlr.v4.gui.TestRig
+SRCFILES  = main.java Environment.java AST.java
+GENERATED = hwLexer.java hwParser.java hwBaseVisitor.java hwVisitor.java hwBaseListener.java hwListener.java
 
 all:	
-	make grun
+	make run
 
-ccLexer.java:	cc.g4
-	$(antlr4) cc.g4
+hwLexer.java:	hw.g4
+	$(antlr4) -visitor hw.g4
 
-ccLexer.class:	ccLexer.java
-	javac -cp $(classpath) $(GENERATED)
+main.class:	$(SRCFILES) $(GENERATED)
+	javac $(classpathoption) $(SRCFILES) $(GENERATED) 
 
-grun:	ccLexer.class # cc.txt
-	$(grun) cc start -gui -tokens 01-hello-world.hw
+run:	main.class
+	java $(classpathoption) main 01-hello-world.hw  > 01.html
+	java $(classpathoption) main 01b-hello-world-withdef.hw  > 01b.html
+	java $(classpathoption) main 02-trafiklys-minimal.hw  > 02.html
+	java $(classpathoption) main 03-trafiklys.hw  > 03.html
+	java $(classpathoption) main 04-von-Neumann.hw  > 04.html
+
+grun:	hwLexer.class hwParser.class 01-hello-world.hw
+	$(grun) impl start -gui -tokens 01-hello-world.hw
+
+clean:
+	rm $(GENERATED) *.class hw.interp hwLexer.interp hwLexer.tokens hw.tokens
